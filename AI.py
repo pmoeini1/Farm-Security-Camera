@@ -9,13 +9,23 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from autoEmail import *
 
+# retrieve email info from text file
+file = open('userInfo.txt', 'r')
+lines = file.readlines()
+pword = lines[5]
+sysEmail = lines[1]
+recEmail = lines[3]
+# close text file
+file.close()
+
+
 
 # turn on camera
 camera = cv2.VideoCapture(0)
 # if camera is off, exit program
 if not camera.isOpened():
-    # change w proper email info from text file CHANGE
-    sendSimpleEmail("Please turn on camera", userEmail, senderEmail, password)
+    # send email if camera is off
+    sendSimpleEmail("Please turn on camera", recEmail, sysEmail, pword)
     exit()
 # set up predator classifier file
 predatorPath = os.path.join('Cascades', 'predatorFinder.xml')
@@ -49,11 +59,11 @@ while (camera.isOpened()):
              # alert farmer of human CHANGE
             cv.imshow("Intruder", img)
     else:
-        # change w proper email info from text file CHANGE
-        sendSimpleEmail("ERROR: Camera not working", userEmail, senderEmail, password)
+        # send error msg in email
+        sendSimpleEmail("ERROR: Camera not working", recEmail, sysEmail, pword)
         break
     # pause the program for 60s after each frame
     time.sleep(60)
-
+# send email if camera is off and exit program
 sendSimpleEmail("Camera off", userEmail, senderEmail, password)
 exit()

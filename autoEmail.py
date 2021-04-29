@@ -9,3 +9,5 @@ def sendSimpleEmail(body, userEmail, senderEmail, password):
         server.login(senderEmail, password) # login to email
         server.sendmail(senderEmail, userEmail, body) # send alert email
 
+
+

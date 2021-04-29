@@ -1,7 +1,6 @@
 sender email:
-system@gmail.com
+system@email.com
 receiver email:
 farmer@email.com
 password:
 password123
-
