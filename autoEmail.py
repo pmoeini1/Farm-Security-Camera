@@ -9,7 +9,7 @@ def sendEmail(body, userEmail, senderEmail, password, attachedImage=None, subjec
     msg['Subject'] = subject
     msg['From'] = senderEmail
     msg['To'] = userEmail
-    s = smtplib.SMTP('localhost')
+    s = smtplib.SMTP() # put appropriate parameters in SMTP function (removed for security reasons)
     msg.add_attachment(attachedImage)
     s.send_message(msg)
     s.quit()
