@@ -2,13 +2,20 @@ import cv2
 import os
 import time
 import numpy
+import email, smtplib, ssl
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from autoEmail import *
+
 
 # turn on camera
 camera = cv2.VideoCapture(0)
 # if camera is off, exit program
 if not camera.isOpened():
-    # change w proper error message
-    print("Cannot open camera")
+    # change w proper email info from text file CHANGE
+    sendSimpleEmail("Please turn on camera", userEmail, senderEmail, password)
     exit()
 # set up predator classifier file
 predatorPath = os.path.join('Cascades', 'predatorFinder.xml')
@@ -34,17 +41,19 @@ while (camera.isOpened()):
         if len(predators) > 0:
             for (x,y,w,h) in predators:
                 cv.rectangle(img, (x,y), (x+w,y+h), (255,0,0), thickness=2)
-            # alert farmer of predator
+            # alert farmer of predator CHANGE
             cv.imshow("Intruder Cat", img)
         if len(humans) > 0:
             for (x,y,w,h) in humans:
                 cv.rectangle(img, (x,y), (x+w,y+h), (0,255,0), thickness=2)
-             # alert farmer of human
+             # alert farmer of human CHANGE
             cv.imshow("Intruder", img)
     else:
-        # change w proper error msg
-        print("Cannot receive frame")
+        # change w proper email info from text file CHANGE
+        sendSimpleEmail("ERROR: Camera not working", userEmail, senderEmail, password)
         break
-    # pause the program for 15s after each frame
-    time.sleep(15.0)
+    # pause the program for 60s after each frame
+    time.sleep(60)
 
+sendSimpleEmail("Camera off", userEmail, senderEmail, password)
+exit()
