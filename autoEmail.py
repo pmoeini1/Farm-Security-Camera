@@ -12,6 +12,7 @@ def sendEmail(body, userEmail, senderEmail, password, attachedImage=None, subjec
     s = smtplib.SMTP() # put appropriate parameters in SMTP function (removed for security reasons)
     msg.add_attachment(attachedImage)
     s.send_message(msg)
+    except SMTPException
     s.quit()
 
 def getTime():
