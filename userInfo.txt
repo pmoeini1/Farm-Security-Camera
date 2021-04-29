@@ -4,3 +4,7 @@ receiver email:
 farmer@email.com
 password:
 password123
+twitter access key:
+accessKey
+twitter secret key:
+secretKey

@@ -1,13 +1,19 @@
 import email, smtplib, ssl
+from email.message import EmailMessage
+import datetime
 
 
-def sendSimpleEmail(body, userEmail, senderEmail, password):
-    port = 465  # For SSL
-    smtp_server = "smtp.gmail.com" # SMTP server
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(senderEmail, password) # login to email
-        server.sendmail(senderEmail, userEmail, body) # send alert email
+def sendEmail(body, userEmail, senderEmail, password, attachedImage=None, subject):
+    msg = EmailMessage()
+    msg.set_content(body)
+    msg['Subject'] = subject
+    msg['From'] = senderEmail
+    msg['To'] = userEmail
+    s = smtplib.SMTP('localhost')
+    msg.add_attachment(attachedImage)
+    s.send_message(msg)
+    s.quit()
 
-
-
+def getTime():
+    now = datetime.now()
+    return now.strftime("%m/%d/%Y, %H:%M:%S")
