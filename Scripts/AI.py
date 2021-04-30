@@ -45,7 +45,7 @@ while (camera.isOpened()):
     isTrue, img = camera.read()
     if (isTrue):
         if (predator_cascade.empty() or human_cascade.empty()):
-            print("empty")
+            sendEmail("Software Error", recEmail, sysEmail, pword, "Alert")
         # convert image to grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         # detect predator face in frame
